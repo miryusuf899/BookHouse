@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ book.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/book_style.css' %}">
+</head>
+<body>
+    <div class="container" style="max-width: 900px;">
+        <div style="display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px;">
+            <div class="detail-left">
+                {% if book.cover %}
+                    <img src="{{ book.cover.url }}" style="width: 100%; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.6);">
+                {% endif %}
+                <div style="margin-top: 20px; background: rgba(34, 197, 94, 0.1); border: 1px solid #22c55e; padding: 15px; border-radius: 12px; text-align: center;">
+                    <span style="color: #22c55e; font-size: 1.6rem; font-weight: 900;">{{ book.price }} TJS</span>
+                </div>
+            </div>
+            
+            <div class="detail-right">
+                <h1 style="color: #38bdf8; font-size: 2.2rem; margin-bottom: 5px;">{{ book.title }}</h1>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Category: <span style="color: #fff;">{{ book.category.name }}</span></p>
+
+                <div class="info-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; background: rgba(15, 23, 42, 0.5); padding: 20px; border-radius: 15px;">
+                    <div>
+                        <small style="color: #38bdf8; display: block; margin-bottom: 5px;">AUTHOR</small>
+                        <p><strong>{{ book.author.full_name }}</strong></p>
+                    </div>
+                    <div>
+                        <small style="color: #38bdf8; display: block; margin-bottom: 5px;">PUBLISHER</small>
+                        <p>{{ book.publisher.name }}</p>
+                    </div>
+                    <div>
+                        <small style="color: #38bdf8; display: block; margin-bottom: 5px;">PAGES</small>
+                        <p>{{ book.pages }} p.</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px;">
+                    <small style="color: #38bdf8; display: block; margin-bottom: 10px;">DESCRIPTION</small>
+                    <p style="line-height: 1.7; color: #cbd5e1;">{{ book.description }}</p>
+                </div>
+
+                <div style="margin-top: 35px; display: flex; gap: 15px;">
+                    <a href="{% url 'book_list' %}" style="background: rgba(255,255,255,0.05); color: #fff; text-decoration: none; padding: 12px 25px; border-radius: 10px;">Back</a>
+                    <a href="{% url 'book_update' book.pk %}" style="background: #38bdf8; color: #0f172a; text-decoration: none; padding: 12px 25px; border-radius: 10px; font-weight: bold;">Edit Book</a>
+                    <a href="{% url 'book_delete' book.pk %}" style="color: #ef4444; text-decoration: none; padding: 12px; margin-left: auto;"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

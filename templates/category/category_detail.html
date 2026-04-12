@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ category.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/category_detail2.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Category: {{ category.name }}</h1>
+        <p><strong>Description:</strong></p>
+        <p>{{ category.description }}</p>
+        <br>
+        <a href="{% url 'category_list' %}" class="btn">Back to List</a>
+    </div>
+</body>
+</html>

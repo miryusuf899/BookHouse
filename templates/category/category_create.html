@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Category</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/category_form1.css' %}">
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Add New Category</h1>
+        
+        <label>Category Name:</label>
+        <input type="text" name="name" placeholder="Enter name..." required>
+        
+        <label>Description:</label>
+        <textarea name="description" rows="5" placeholder="Enter description..."></textarea>
+        
+        <button type="submit" class="btn">Save Category</button>
+        <a href="{% url 'category_list' %}" style="color: #888; margin-top: 15px; text-decoration: none; display: block; text-align: center;">Cancel</a>
+    </form>
+</body>
+</html>

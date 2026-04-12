@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Author | {{ author.full_name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/author_style.css' %}">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Edit Profile</h1>
+        
+        <label>Full Name:</label>
+        <input type="text" name="full_name" value="{{ author.full_name }}" required>
+        
+        <label>Email Address:</label>
+        <input type="email" name="email" value="{{ author.email }}" required 
+               style="width: 100%; padding: 10px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); color: white; border-radius: 10px;">
+        
+        <label>Change Photo:</label>
+        <input type="file" name="photo">
+        {% if author.photo %}
+            <p style="font-size: 0.7rem; color: #22c55e; margin-top: 5px;">Current: {{ author.photo.name }}</p>
+        {% endif %}
+        
+        <label>Biography:</label>
+        <textarea name="bio" rows="5">{{ author.bio }}</textarea>
+        
+        <button type="submit" class="btn">Update Changes</button>
+        <a href="{% url 'author_detail' author.pk %}" style="display: block; text-align: center; margin-top: 15px; color: #94a3b8; text-decoration: none;">Cancel</a>
+    </form>
+</body>
+</html>

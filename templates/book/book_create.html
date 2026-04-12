@@ -1,0 +1,78 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookHouse | New Book</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/book_style.css' %}">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data" class="book-form">
+        {% csrf_token %}
+        <h1><i class="fa-solid fa-plus-circle"></i> Add New Book</h1>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label><i class="fa-solid fa-heading"></i> Book Title</label>
+                <input type="text" name="title" placeholder="e.g. Shohnoma" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-tag"></i> Category</label>
+                    <select name="category" required>
+                        <option value="">Select Category</option>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}">{{ cat.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-user-tie"></i> Author</label>
+                    <select name="author" required>
+                        <option value="">Select Author</option>
+                        {% for auth in authors %}
+                            <option value="{{ auth.id }}">{{ auth.full_name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-building-columns"></i> Publisher</label>
+                <select name="publisher" required>
+                    <option value="">Select Publisher</option>
+                    {% for pub in publishers %}
+                        <option value="{{ pub.id }}">{{ pub.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label><i class="fa-solid fa-money-bill-wave"></i> Price (TJS)</label>
+                    <input type="number" name="price" step="0.01" placeholder="0.00" required>
+                </div>
+                <div class="form-group">
+                    <label><i class="fa-solid fa-file-lines"></i> Pages</label>
+                    <input type="number" name="pages" placeholder="Total pages" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-image"></i> Book Cover Image</label>
+                <input type="file" name="cover" accept="image/*" required>
+            </div>
+
+            <div class="form-group">
+                <label><i class="fa-solid fa-align-left"></i> Description</label>
+                <textarea name="description" rows="4" placeholder="Brief summary of the book..."></textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Save to Library</button>
+        <a href="{% url 'book_list' %}" class="cancel-link">Cancel</a>
+    </form>
+</body>
+</html>

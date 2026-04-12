@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Category</title>
+    <link rel="stylesheet" type="text/css" href="{% static './css/category_form1.css' %}">
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <h1>Edit Category: {{ category.name }}</h1>
+        <label>Category Name:</label>
+        <input type="text" name="name" value="{{ category.name }}" required>
+        
+        <label>Description:</label>
+        <textarea name="description" rows="5">{{ category.description }}</textarea>
+        
+        <button type="submit" class="btn">Update Changes</button>
+        <a href="{% url 'category_list' %}" style="color: #888; margin-left: 15px; text-decoration: none;">Cancel</a>
+    </form>
+</body>
+</html>

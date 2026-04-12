@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BookHouse | Authors</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/author_style.css' %}">
+</head>
+<body>
+   <nav class="navbar">
+    <a href="{% url 'home' %}" class="nav-logo">📘 BookHouse</a>
+    <div class="nav-links">
+        <a href="{% url 'book_list' %}">Books</a>
+        <a href="{% url 'author_list' %}">Authors</a>
+        <a href="{% url 'category_list' %}">Categories</a>
+        <a href="{% url 'publisher_list' %}" class="nav-item" style="
+            position: relative;
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 5px 10px;
+            transition: 0.3s all ease;
+        ">
+            <i class="fa-solid fa-building-shield" style="color: var(--accent-blue); margin-right: 5px;"></i> Publishers
+        </a>
+    </div>
+</nav>
+
+    <div class="container">
+        <div class="header-section">
+            <h1><i class="fa-solid fa-pen-nib"></i> Our Authors</h1>
+            <a href="{% url 'create_author' %}" class="btn-primary">
+                <i class="fa-solid fa-plus"></i> Add Author
+            </a>
+        </div>
+
+        <div class="author-grid">
+            {% for author in authors %}
+            <div class="author-card">
+                <div class="author-photo-circle">
+                    {% if author.photo %}
+                        <img src="{{ author.photo.url }}" alt="{{ author.full_name }}">
+                    {% else %}
+                        <div class="photo-placeholder"><i class="fa-solid fa-user"></i></div>
+                    {% endif %}
+                </div>
+                <h3>{{ author.full_name }}</h3>
+                <p class="email">{{ author.email }}</p>
+                
+                <div class="card-actions">
+                    <a href="{% url 'author_detail' author.pk %}" class="btn-icon" title="View"><i class="fa-solid fa-eye"></i></a>
+                    <a href="{% url 'author_update' author.pk %}" class="btn-icon" title="Edit"><i class="fa-solid fa-user-pen"></i></a>
+                    <a href="{% url 'author_delete' author.pk %}" class="btn-icon btn-del" title="Delete"><i class="fa-solid fa-trash"></i></a>
+                </div>
+            </div>
+            {% empty %}
+            <p>No authors added yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

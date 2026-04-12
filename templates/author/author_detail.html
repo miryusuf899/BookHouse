@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ author.full_name }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/author_style.css' %}">
+</head>
+<body>
+    <div class="detail-container">
+        <div class="author-profile">
+            <div class="profile-left">
+                {% if author.photo %}
+                    <img src="{{ author.photo.url }}" class="large-photo">
+                {% else %}
+                    <div class="large-photo-placeholder"><i class="fa-solid fa-user"></i></div>
+                {% endif %}
+            </div>
+            <div class="profile-right">
+                <h1>{{ author.full_name }}</h1>
+                <p class="label">Email Contact</p>
+                <p class="data">{{ author.email }}</p>
+                
+                <p class="label">Biography</p>
+                <div class="bio-box">{{ author.bio }}</div>
+
+                <div class="actions">
+                    <a href="{% url 'author_list' %}" class="btn-secondary">Back</a>
+                    <a href="{% url 'author_update' author.pk %}" class="btn-primary">Edit Profile</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,19 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Author</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/author_style.css' %}">
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <h1 style="color: #ff4d4d;">Delete Author?</h1>
+        <p style="text-align: center; margin-bottom: 20px;">
+            Are you sure you want to delete <strong>{{ author.full_name }}</strong>?
+        </p>
+        <button type="submit" class="btn" style="background: #ff4d4d;">Yes, Delete</button>
+        <a href="{% url 'author_list' %}" style="display: block; text-align: center; margin-top: 15px;">Cancel</a>
+    </form>
+</body>
+</html>

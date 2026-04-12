@@ -1,0 +1,21 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Category</title>
+    <link rel="stylesheet" type="text/css" href="{% static '/css/category_delete2.css' %}">     
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: #e74c3c;">Are you sure?</h1>
+        <p>Do you really want to delete category <strong>"{{ category.name }}"</strong>?</p>
+        <p style="color: #888;">This action cannot be undone.</p>
+        <br>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn-danger">Yes, Delete Forever</button>
+            <a href="{% url 'category_list' %}" style="color: #3498db; margin-left: 20px; text-decoration: none;">No, go back</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,54 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookHouse | Dashboard</title>
+    <link rel="stylesheet" href="{% static '/css/home2.css' %}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{% url 'home' %}" class="nav-logo">📘 BookHouse</a>
+        <div class="nav-links">
+            <a href="{% url 'book_list' %}">Books</a>
+            <a href="{% url 'author_list' %}">Authors</a>
+            <a href="{% url 'category_list' %}">Categories</a>
+            <a href="{% url 'publisher_list' %}">Publishers</a>
+            
+            <a href="/admin/" style="background: var(--accent-blue); color: #0f172a; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-left: 10px;">Admin</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome</h1>
+            <p style="color: #94a3b8;">Manage your library records efficiently and stylishly.</p>
+        </div>
+
+        <div class="menu-grid">
+            <a href="{% url 'book_list' %}" class="menu-item">
+                <span>📚</span>
+                <b>BOOKS</b>
+            </a>
+            <a href="{% url 'author_list' %}" class="menu-item">
+                <span>✍️</span>
+                <b>AUTHORS</b>
+            </a>
+            <a href="{% url 'category_list' %}" class="menu-item">
+                <span>📂</span>
+                <b>CATEGORIES</b>
+            </a>
+            <a href="{% url 'publisher_list' %}" class="menu-item">
+                <span>🏢</span>
+                <b>PUBLISHERS</b>
+            </a>
+        </div>
+
+        <div class="footer-info">
+            <p>System status: <span style="color: #22c55e;">● Online</span> | Dashboard v2.0</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete Book | {{ book.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/book_style.css' %}">
+</head>
+<body>
+    <div class="form-container">
+        <form method="POST" class="delete-form">
+            {% csrf_token %}
+            
+            <div style="text-align: center; font-size: 4rem; color: #ef4444; margin-bottom: 20px;">
+                <i class="fa-solid fa-circle-exclamation"></i>
+            </div>
+
+            <h1 style="color: #ef4444; text-align: center;">Confirm Deletion</h1>
+            
+            <p style="text-align: center; margin-bottom: 30px; color: #cbd5e1; line-height: 1.5;">
+                Are you sure you want to delete <br>
+                <strong style="color: #fff; font-size: 1.2rem;">"{{ book.title }}"</strong> <br>
+                from the database? This action cannot be undone.
+            </p>
+            
+            <button type="submit" class="btn" style="background: #ef4444; border: none; box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);">
+                <i class="fa-solid fa-trash-can"></i> Yes, Delete Forever
+            </button>
+            
+            <a href="{% url 'book_list' %}" style="display: block; text-align: center; margin-top: 20px; color: #94a3b8; text-decoration: none; font-weight: 600;">
+                No, Keep this book
+            </a>
+        </form>
+    </div>
+</body>
+</html>

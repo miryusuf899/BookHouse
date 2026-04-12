@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit {{ publisher.name }}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/publisher_style.css' %}">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Edit Publisher</h1>
+        
+        <label>Company Name:</label>
+        <input type="text" name="name" value="{{ publisher.name }}" required>
+        
+        <label>Address:</label>
+        <input type="text" name="address" value="{{ publisher.address }}" required>
+        
+        <label>Phone Number:</label>
+        <input type="text" name="phone" value="{{ publisher.phone }}" required>
+        
+        <label>Update Logo:</label>
+        <input type="file" name="logo">
+        
+        <button type="submit" class="btn">Update Publisher</button>
+        <a href="{% url 'publisher_detail' publisher.pk %}" style="display: block; text-align: center; margin-top: 15px; color: #94a3b8; text-decoration: none;">Cancel</a>
+    </form>
+</body>
+</html>

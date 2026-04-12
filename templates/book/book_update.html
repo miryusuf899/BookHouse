@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit | {{ book.title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/book_style.css' %}">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data" class="book-form">
+        {% csrf_token %}
+        <h1 style="color: #38bdf8;"><i class="fa-solid fa-pen-to-square"></i> Update Book</h1>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label>Book Title</label>
+                <input type="text" name="title" value="{{ book.title }}" required>
+            </div>
+
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Category</label>
+                    <select name="category" required>
+                        {% for cat in categories %}
+                            <option value="{{ cat.id }}" {% if cat.id == book.category.id %}selected{% endif %}>
+                                {{ cat.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Author</label>
+                    <select name="author" required>
+                        {% for auth in authors %}
+                            <option value="{{ auth.id }}" {% if auth.id == book.author.id %}selected{% endif %}>
+                                {{ auth.full_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Publisher</label>
+                <select name="publisher" required>
+                    {% for pub in publishers %}
+                        <option value="{{ pub.id }}" {% if pub.id == book.publisher.id %}selected{% endif %}>
+                            {{ pub.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="form-row" style="display: flex; gap: 15px;">
+                <div class="form-group" style="flex: 1;">
+                    <label>Price (TJS)</label>
+                    <input type="number" name="price" step="0.01" value="{{ book.price|stringformat:'.2f' }}" required>
+                </div>
+                <div class="form-group" style="flex: 1;">
+                    <label>Pages</label>
+                    <input type="number" name="pages" value="{{ book.pages }}" required>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Update Cover</label>
+                {% if book.cover %}
+                    <p style="font-size: 0.8rem; color: #22c55e; margin-bottom: 5px;">Current: {{ book.cover.name }}</p>
+                {% endif %}
+                <input type="file" name="cover" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label>Description</label>
+                <textarea name="description" rows="5">{{ book.description }}</textarea>
+            </div>
+        </div>
+
+        <button type="submit" class="btn">Save Changes</button>
+        <a href="{% url 'book_detail' book.pk %}" style="display: block; text-align: center; margin-top: 15px; color: #94a3b8; text-decoration: none;">Cancel</a>
+    </form>
+</body>
+</html>

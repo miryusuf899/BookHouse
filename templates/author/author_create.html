@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add New Author</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/author_style.css' %}">
+</head>
+<body>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <h1>Add New Author</h1>
+        
+        <label>Full Name:</label>
+        <input type="text" name="full_name" placeholder="Enter full name..." required>
+        
+        <label>Email Address:</label>
+        <input type="email" name="email" placeholder="example@mail.com" required 
+               style="width: 100%; padding: 10px; background: rgba(15, 23, 42, 0.7); border: 1px solid rgba(255, 255, 255, 0.1); color: white; border-radius: 10px;">
+        
+        <label>Author Photo:</label>
+        <input type="file" name="photo" style="margin-top: 10px;">
+        
+        <label>Short Biography:</label>
+        <textarea name="bio" rows="5" placeholder="Tell something about the author..."></textarea>
+        
+        <button type="submit" class="btn">Create Author</button>
+        <a href="{% url 'author_list' %}" style="display: block; text-align: center; margin-top: 15px; color: #94a3b8; text-decoration: none;">Cancel</a>
+    </form>
+</body>
+</html>
