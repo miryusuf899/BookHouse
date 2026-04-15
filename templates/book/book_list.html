@@ -12,7 +12,37 @@
             <h1><i class="fa-solid fa-book-bookmark"></i> Book Catalog</h1>
             <a href="{% url 'create_book' %}" class="btn-add" style="text-decoration: none; background: #38bdf8; color: #0f172a; padding: 12px 24px; border-radius: 12px; font-weight: 800;">+ ADD BOOK</a>
         </div>
+        <div style="background: rgba(30, 41, 59, 0.4); border-radius: 24px; padding: 25px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 40px;">
+            <form method="get" style="display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end;">
+                
+                <div style="flex: 1; min-width: 200px;">
+                    <label style="display: block; color: #94a3b8; margin-bottom: 8px; font-size: 0.8rem; font-weight: 600;">SEARCH BY TITLE</label>
+                    <input type="text" name="title" value="{{ request.GET.title }}" placeholder="Book name..." 
+                           style="width: 100%; background: #0f172a; border: 1px solid #334155; color: white; padding: 10px; border-radius: 10px; outline: none;">
+                </div>
 
+                <div style="width: 120px;">
+                    <label style="display: block; color: #94a3b8; margin-bottom: 8px; font-size: 0.8rem; font-weight: 600;">MIN PRICE</label>
+                    <input type="number" name="price__gt" value="{{ request.GET.price__gt }}" placeholder="From" 
+                           style="width: 100%; background: #0f172a; border: 1px solid #334155; color: white; padding: 10px; border-radius: 10px;">
+                </div>
+
+                <div style="width: 120px;">
+                    <label style="display: block; color: #94a3b8; margin-bottom: 8px; font-size: 0.8rem; font-weight: 600;">MAX PRICE</label>
+                    <input type="number" name="price__lt" value="{{ request.GET.price__lt }}" placeholder="To" 
+                           style="width: 100%; background: #0f172a; border: 1px solid #334155; color: white; padding: 10px; border-radius: 10px;">
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button type="submit" style="background: #38bdf8; color: #0f172a; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer;">
+                        <i class="fa-solid fa-magnifying-glass"></i> SEARCH
+                    </button>
+                    <a href="{% url 'book_list' %}" style="background: rgba(255,255,255,0.05); color: #94a3b8; text-decoration: none; padding: 10px 15px; border-radius: 10px; font-size: 0.9rem; border: 1px solid #334155;">
+                        RESET
+                    </a>
+                </div>
+            </form>
+        </div>
         <div class="author-grid">
             {% for book in books %}
             <div class="author-card" style="background: rgba(30, 41, 59, 0.4); border-radius: 24px; padding: 15px; border: 1px solid rgba(255,255,255,0.05);">

@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Category, Author, Publisher, Book
+from django.db import models
+from .filter import FilterBook
 
 def home(request):
     return render(request, 'home.html')
@@ -18,7 +20,11 @@ def publisher_list(request):
 
 def book_list(request):
     books = Book.objects.all()
-    return render(request, 'book/book_list.html', {'books': books})
+    book_filter = FilterBook(request.GET, queryset=Book.objects.all())
+    return render(request, 'book/book_list.html', {
+        'books': book_filter.qs,
+        'filter': book_filter
+    })
 
 def category_detail(request, pk):
     category = get_object_or_404(Category, pk=pk)
@@ -156,14 +162,21 @@ def book_delete(request, pk):
         return redirect('book_list')
     return render(request, 'book/book_delete.html', {'book': book})
 
-
-
-
-
-
-
-
-
+def aggregate_view(request):
+    book_stats = Book.objects.aggregate(
+        total_books=models.Count('id'),
+        total_price=models.Sum('price'),
+        average_price=models.Avg('price'),
+        max_price=models.Max('price'),
+        min_price=models.Min('price'),
+    )
+    authors = Author.objects.annotate(
+        num_books=models.Count('book'),
+        avg_book_price=models.Avg('book__price'),
+        max_book_price=models.Max('book__price'),
+    )
+    
+    return render(request, 'stats.html', {'stats': book_stats, 'authors': authors,})
 
 
 

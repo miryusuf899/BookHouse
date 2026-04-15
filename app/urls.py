@@ -27,4 +27,6 @@ urlpatterns = [
     path('book/create/', create_book, name='create_book'),
     path('book/update/<int:pk>/', book_update, name='book_update'),
     path('book/delete/<int:pk>/', book_delete, name='book_delete'),
+
+    path('stats/', aggregate_view, name='stats'),
 ]
