@@ -1,10 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Category, Author, Publisher, Book
+from .models import Category, Author, Publisher, Book, UserModel
 from django.db import models
 from .filter import FilterBook
-
-def home(request):
-    return render(request, 'home.html')
 
 def category_list(request):
     categories = Category.objects.all()
@@ -178,6 +175,64 @@ def aggregate_view(request):
     
     return render(request, 'stats.html', {'stats': book_stats, 'authors': authors,})
 
+def register_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        phone_number = request.POST.get('phone_number')
+        password = request.POST.get('password')
+        
+        if username and phone_number and password:
+            UserModel.objects.create(username=username, phone_number=phone_number, password=password)
+        return redirect('login')
+    return render(request, 'Registrations/register.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        
+        user = UserModel.objects.filter(username=username, password=password).first()
+        if user:
+            request.session['user_id'] = user.id
+            return redirect('home')
+        
+    return render(request, 'Registrations/login.html')
+
+def forgot_pass_view(request):
+    if request.method == 'POST':
+        phone = request.POST.get('phone_number')
+        new_password = request.POST.get('new_password')
+        
+        user = UserModel.objects.filter(phone_number=phone).first()
+        if user:
+            user.password = new_password
+            user.save()
+            return redirect('login')
+    return render(request, 'Registrations/forgot_password.html')
+
+def change_pass_view(request):
+    if request.method == 'POST':
+        user_id = request.session.get('user_id')
+        old_password = request.POST.get('old_password')
+        new_password = request.POST.get('new_password')
+        
+        user = UserModel.objects.filter(id=user_id, password=old_password).first()
+        if user:
+            user.password = new_password
+            user.save()
+            return redirect('home')
+    return render(request, 'Registrations/change_password.html')
+
+def logout_view(request):
+    request.session.flush()
+    return redirect('login')
+
+def home(request):
+    user = request.session.get('user_id')
+    if not user:
+        return redirect('login')
+    data = {'data': get_object_or_404(UserModel, id=user)}
+    return render(request, 'home.html', data)
 
 
 

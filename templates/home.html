@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BookHouse | Dashboard</title>
     <link rel="stylesheet" href="{% static '/css/home2.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
@@ -18,13 +19,16 @@
             <a href="{% url 'publisher_list' %}">Publishers</a>
             <a href="{% url 'stats' %}">Statistics</a>
             
+            <a href="{% url 'change_password' %}" title="Change Password"><i class="fa-solid fa-key"></i></a>
+            <a href="{% url 'logout' %}" style="color: #ef4444; font-weight: bold; margin-left: 10px;">Logout</a>
+
             <a href="/admin/" style="background: var(--accent-blue); color: #0f172a; padding: 5px 15px; border-radius: 5px; font-weight: bold; margin-left: 10px;">Admin</a>
         </div>
     </nav>
 
     <div class="container">
         <div class="welcome-section">
-            <h1>Welcome</h1>
+            <h1>Welcome, {{ data.username }}!</h1>
             <p style="color: #94a3b8;">Manage your library records efficiently and stylishly.</p>
         </div>
 
@@ -46,8 +50,12 @@
                 <b>PUBLISHERS</b>
             </a>
         </div>
+
         <div class="footer-info">
-            <p>System status: <span style="color: #22c55e;">● Online</span> | Dashboard v2.0</p>
+            <p>
+                Account: <span style="color: #38bdf8;">{{ data.phone_number }}</span> | 
+                Status: <span style="color: #22c55e;">● Online</span>
+            </p>
         </div>
     </div>
 </body>

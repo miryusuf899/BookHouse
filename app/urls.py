@@ -29,4 +29,9 @@ urlpatterns = [
     path('book/delete/<int:pk>/', book_delete, name='book_delete'),
 
     path('stats/', aggregate_view, name='stats'),
+
+    path('change_password/', change_pass_view, name='change_password'),
+    path('logout/', logout_view, name='logout'),
+    path('register/', register_view, name='register'),
+    path('login/', login_view, name='login'),
 ]

@@ -37,3 +37,12 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+class UserModel(models.Model):
+    username = models.CharField(max_length=150, unique=True)
+    phone_number = models.CharField(max_length=20)
+    password = models.CharField(max_length=128)
+
+    def __str__(self):
+        return self.username
+    
